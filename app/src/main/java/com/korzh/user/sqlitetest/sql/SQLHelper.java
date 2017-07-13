@@ -15,8 +15,8 @@ public class SQLHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "SQLHelper";
 
-    private static final String DATABASE_NAME = "test.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final String DATABASE_NAME = "test_2.db";
+    private static final int DATABASE_VERSION = 4;
 
     private static final String TABLE_NAME  = "user";
     private static final String COLUMN_NAME  = "name";
@@ -40,9 +40,9 @@ public class SQLHelper extends SQLiteOpenHelper {
 
         selectFromTable(db);
 
-        deleteFromTable(db);
-
-        deleteTable(db);
+//        deleteFromTable(db);
+//
+//        deleteTable(db);
     }
 
 
@@ -98,6 +98,17 @@ public class SQLHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(TAG, "onUpgrade() called with: db = [" + db + "], oldVersion = [" + oldVersion + "], newVersion = [" + newVersion + "]");
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_AGE, 34);
+
+        db.update(TABLE_NAME,
+                contentValues,
+                COLUMN_NAME + " = ?",
+                new String[]{"Roma"});
+
+        selectFromTable(db);
+
 
     }
 
